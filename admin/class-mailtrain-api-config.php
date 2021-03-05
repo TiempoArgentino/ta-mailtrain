@@ -75,6 +75,11 @@ class Mailtrain_API_Config
         );
     }
 
+    public function mailtrain_api_section_info()
+    {
+        
+    }
+
     public function mailtrain_api_sanitize($input)
     {
         $sanitary_values = array();

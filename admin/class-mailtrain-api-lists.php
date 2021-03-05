@@ -127,16 +127,21 @@ class Mailtrain_API_List
         $last_name = isset($_POST['last_name']) && $_POST['last_name'] === '1' ? 1 : 0;
         $force = isset($_POST['force']) && $_POST['force'] === '1' ? 1 : 0;
 
-        $extra_field = $_POST['extra-field'];
-        $extra_field_merge = $_POST['extra-field-merge'];
-        $custom_field = array_map(function ($extra_field, $extra_field_merge) {
-            return array_combine(
-                ['extra-field', 'merge'],
-                [$extra_field, $extra_field_merge]
-            );
-        }, $extra_field, $extra_field_merge);
+        
+        if(isset($_POST['extra-field']) && isset($_POST['extra-field-merge'])) {
 
-        update_post_meta($post_id, '_custom_fields', $custom_field);
+            $extra_field = $_POST['extra-field'];
+            $extra_field_merge = $_POST['extra-field-merge'];
+
+            $custom_field = array_map(function ($extra_field, $extra_field_merge) {
+                return array_combine(
+                    ['extra-field', 'merge'],
+                    [$extra_field, $extra_field_merge]
+                );
+            }, $extra_field, $extra_field_merge);
+            update_post_meta($post_id, '_custom_fields', $custom_field);
+        }
+        
         update_post_meta($post_id,'_frecuency',$frecuency);
         update_post_meta($post_id, '_email_label', $email);
         update_post_meta($post_id, '_list_id', $list_id);
@@ -208,7 +213,7 @@ class Mailtrain_API_List
                 <th scope="row"><h4>' . __('Extra Form Fields', 'mailtrain-api') . '</h4></th>
                 <td><button id="add_field" class="components-button edit-post-header-toolbar__inserter-toggle is-primary has-icon" type="button">' . __('ADD EXTRA FIELD', 'mailtrain-api') . '</button><p>' . __('Merge fields or custom fields for your list, these fields must exist in your list ') . '</p></td>
             </tr>';
-        if (isset($extra) && count($extra) > 0) {
+        if ($extra !== "") {
             $i = 15;
             foreach ($extra as $value) {
                 $i++;
