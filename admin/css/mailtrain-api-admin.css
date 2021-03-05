@@ -1,0 +1,24 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ input.medium{
+     width: 93% !important;
+ }
+ select.medium, textarea.medium, .medium-text{
+    width: 80% !important;
+}
+ th.label-row {
+    width: 50px !important;
+    padding-left: 19px;
+}
+tr.extra-field {
+    border: 1px solid lightgray;
+}
+.merge-field{
+    text-transform: uppercase;
+}
+.field-options{
+    display: none;
+}
