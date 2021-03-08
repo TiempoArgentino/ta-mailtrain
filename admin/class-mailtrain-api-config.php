@@ -48,20 +48,20 @@ class Mailtrain_API_Config
         register_setting(
             'mailtrain_api_option_group', // option_group
             'mailtrain_api_option_name', // option_name
-            array($this, 'mailtrain_api_sanitize') // sanitize_callback
+            [$this, 'mailtrain_api_sanitize'] // sanitize_callback
         );
 
         add_settings_section(
             'mailtrain_api_setting_section', // id
             'Settings', // title
-            array($this, 'mailtrain_api_section_info'), // callback
+            [$this, 'mailtrain_api_section_info'], // callback
             'mailtrain-api-admin' // page
         );
 
         add_settings_field(
             'url_mailtrain', // id
             'URL Mailtrain', // title
-            array($this, 'url_callback'), // callback
+            [$this, 'url_callback'], // callback
             'mailtrain-api-admin', // page
             'mailtrain_api_setting_section' // section
         );
@@ -69,15 +69,44 @@ class Mailtrain_API_Config
         add_settings_field(
             'access_token_0', // id
             'API Access Token', // title
-            array($this, 'access_token_0_callback'), // callback
+            [$this, 'access_token_0_callback'], // callback
             'mailtrain-api-admin', // page
             'mailtrain_api_setting_section' // section
         );
+
+        add_settings_field(
+            'lists_page', // id
+            __('Lists main page', 'mailtrain-api'), // title
+            [$this, 'lists_page_input'], // callback
+            'mailtrain-api-admin', // page
+            'mailtrain_api_setting_section' // section
+        );
+
+        add_settings_field(
+            'terms_page', // id
+            __('Terms and Conditions', 'mailtrain-api'), // title
+            [$this, 'terms_page_input'], // callback
+            'mailtrain-api-admin', // page
+            'mailtrain_api_setting_section' // section
+        );
+
     }
 
     public function mailtrain_api_section_info()
     {
         
+    }
+
+    public function get_pages()
+    {
+        $args = [
+            'post_type' => 'page',
+            'status'    => 'publish',
+            'numberposts' => -1
+        ];
+        $pages = get_posts($args);
+
+        return $pages;
     }
 
     public function mailtrain_api_sanitize($input)
@@ -89,6 +118,14 @@ class Mailtrain_API_Config
 
         if (isset($input['url_mailtrain'])) {
             $sanitary_values['url_mailtrain'] = sanitize_text_field($input['url_mailtrain']);
+        }
+
+        if (isset($_POST['mailtrain_loop_page'])) {
+            update_option('mailtrain_loop_page',$_POST['mailtrain_loop_page'] );
+        }
+
+        if (isset($_POST['mailtrain_terms_page'])) {
+            update_option('mailtrain_terms_page',$_POST['mailtrain_terms_page'] );
         }
 
         return $sanitary_values;
@@ -108,6 +145,34 @@ class Mailtrain_API_Config
             '<input class="regular-text" type="text" name="mailtrain_api_option_name[access_token_0]" id="access_token_0" value="%s"><p>' . __('See in https://newsletter.yourdomain.com/users/api, if not exist, generate it', 'mailtrain-api') . '</p>',
             isset($this->mailtrain_api_options['access_token_0']) ? esc_attr($this->mailtrain_api_options['access_token_0']) : ''
         );
+    }
+
+    public function lists_page_input()
+    {
+        $page_slug = get_option('mailtrain_loop_page');
+        $pages = $this->get_pages();
+
+        $select = '<select name="mailtrain_loop_page">';
+        $select .= '<option value=""> -- select a page -- </option>';
+        foreach ($pages as $p) {
+            $select .= '<option value="' . $p->ID . '" ' . selected($page_slug, $p->ID, false) . '>' . $p->post_title . '</option>';
+        }
+        $select .= '</select>';
+        echo $select;
+    }
+
+    public function terms_page_input()
+    {
+        $page_slug = get_option('mailtrain_terms_page');
+        $pages = $this->get_pages();
+
+        $select = '<select name="mailtrain_terms_page">';
+        $select .= '<option value=""> -- select a page -- </option>';
+        foreach ($pages as $p) {
+            $select .= '<option value="' . $p->ID . '" ' . selected($page_slug, $p->ID, false) . '>' . $p->post_title . '</option>';
+        }
+        $select .= '</select>';
+        echo $select;
     }
 }
 function mailtrain_config()

@@ -112,6 +112,11 @@ class Mailtrain_Api {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mailtrain-api-i18n.php';
 
 		/**
+		 * Utils
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'utils/class-mailtrain-api-utils.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-mailtrain-api-admin.php';

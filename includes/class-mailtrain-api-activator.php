@@ -30,8 +30,55 @@ class Mailtrain_Api_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		self::create_default_pages();
 	}
-	
+	/**
+	 * Default pages querys, function base: https://developer.wordpress.org/reference/functions/post_exists/
+	 */
+	public static function page_exists($page_slug)
+	{
+		global $wpdb;
+		$post_title = wp_unslash(sanitize_post_field('post_name', $page_slug, 0, 'db'));
+
+		$query = "SELECT ID FROM $wpdb->posts WHERE 1=1";
+		$args  = array();
+
+		if (!empty($page_slug)) {
+			$query .= ' AND post_name = %s';
+			$args[] = $post_title;
+		}
+
+		if (!empty($args)) {
+			return (int) $wpdb->get_var($wpdb->prepare($query, $args));
+		}
+
+		return 0;
+	}
+	/**
+	 * Create pages
+	 */
+	public static function create_default_pages()
+	{
+		if(self::page_exists(get_option('mailtrain_loop_page', 'newsletter')) === 0){
+			$page = self::create_mailtrain_page();
+			update_option('mailtrain_loop_page', $page);
+		}
+	}
+	/**
+	 * Mailtrain Lists Page
+	 */
+	public static function create_mailtrain_page()
+	{
+		$args = [
+			'post_title' => __('Newsletter','mailtrain-api'),
+			'post_status'   => 'publish',
+			'post_type'     => 'page',
+			'post_content'  => 'This page is for the subscription template, please modify the content in your-theme/mailtrain/mailtrain.php',
+			'post_author'   => 1,
+		];
+
+		$page = wp_insert_post($args);
+		return $page;
+	}
 
 }

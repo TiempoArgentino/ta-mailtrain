@@ -52,6 +52,8 @@ class Mailtrain_Api_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		$this->mailtrain_templates();
+
 	}
 
 	/**
@@ -96,8 +98,14 @@ class Mailtrain_Api_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mailtrain-api-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'-scripts', plugin_dir_url( __FILE__ ) . 'js/mailtrain-api-public.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function mailtrain_templates()
+	{
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-mailtrain-api-templates.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-mailtrain-api-process.php';
 	}
 
 }

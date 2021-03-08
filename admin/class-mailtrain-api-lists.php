@@ -123,12 +123,13 @@ class Mailtrain_API_List
         $list_cid = sanitize_text_field($_POST['list_cid']);
         $frecuency = sanitize_text_field($_POST['frecuency']);
         $email = sanitize_text_field($_POST['email_label']);
+        $author = sanitize_text_field($_POST['author']);
         $first_name = isset($_POST['first_name']) && $_POST['first_name'] === '1' ? 1 : 0;
         $last_name = isset($_POST['last_name']) && $_POST['last_name'] === '1' ? 1 : 0;
         $force = isset($_POST['force']) && $_POST['force'] === '1' ? 1 : 0;
 
-        
-        if(isset($_POST['extra-field']) && isset($_POST['extra-field-merge'])) {
+
+        if (isset($_POST['extra-field']) && isset($_POST['extra-field-merge'])) {
 
             $extra_field = $_POST['extra-field'];
             $extra_field_merge = $_POST['extra-field-merge'];
@@ -141,9 +142,10 @@ class Mailtrain_API_List
             }, $extra_field, $extra_field_merge);
             update_post_meta($post_id, '_custom_fields', $custom_field);
         }
-        
-        update_post_meta($post_id,'_frecuency',$frecuency);
+
+        update_post_meta($post_id, '_frecuency', $frecuency);
         update_post_meta($post_id, '_email_label', $email);
+        update_post_meta($post_id, '_author_newsletter', $author);
         update_post_meta($post_id, '_list_id', $list_id);
         update_post_meta($post_id, '_list_cid', $list_cid);
         update_post_meta($post_id, '_first_name', $first_name);
@@ -159,7 +161,8 @@ class Mailtrain_API_List
 
         $value = get_post_meta($post->ID, '_list_cid', true);
         $email = get_post_meta($post->ID, '_email_label', true) !== "" ? get_post_meta($post->ID, '_email_label', true) : 'Your Email';
-        $frecuency = get_post_meta($post->ID, '_frecuency',true);
+        $author = get_post_meta($post->ID, '_author_newsletter', true);
+        $frecuency = get_post_meta($post->ID, '_frecuency', true);
         $first_name = get_post_meta($post->ID, '_first_name', true);
         $last_name = get_post_meta($post->ID, '_last_name', true);
         $force = get_post_meta($post->ID, '_force', true);
@@ -186,6 +189,10 @@ class Mailtrain_API_List
             <tr>
                 <th scope="row"><label>' . __('Email field label', 'mailtrain-api') . '</label></th>
                 <td><input type="text" name="email_label" value="' . $email . '"></td>
+            </tr>
+            <tr>
+                <th scope="row"><label>' . __('Author', 'mailtrain-api') . '</label></th>
+                <td><input type="text" name="author" value="' . $author . '"></td>
             </tr>
             <tr>
                 <th scope="row"><label>' . __('Show First Name Field', 'mailtrain-api') . '</label></th>

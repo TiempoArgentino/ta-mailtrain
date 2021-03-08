@@ -2,3 +2,41 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+#lists, #thanks-newsletter{
+    display: none;
+}
+@media(min-width:768px) {
+    .list-img{
+        flex-basis: calc(40% - 1rem);
+    }
+    .list-content{
+        flex-basis: calc(60% - 1rem);
+    }
+    .button-mailtrain{
+        flex-basis: calc(50% - 1rem);
+    }
+}
+
+@media(max-width:768px) {
+    .list-img, .list-content,.button-mailtrain{
+        flex-basis: 100%;
+        text-align: center;
+    }
+}
+.select-option label{
+    cursor: pointer;
+}
+.select-option input{
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+.lists-numbers {
+    display: inline-block;
+}
+div#chose {
+    text-align: center;
+    width: 100%;
+}
