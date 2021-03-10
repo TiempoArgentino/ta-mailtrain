@@ -7,6 +7,7 @@
             <?php do_action('before_lists_form') ?>
             <div id="msg-ok"></div>
             <form method="post" id="mailtrain">
+                <?php if(!is_user_logged_in()): ?>
                 <div id="user-data">
                     <h3 class="text-center">
                         <?php echo __('Receive updates.', 'mailtrain-api') ?>
@@ -30,7 +31,12 @@
                         <?php echo __('You can edit your preferences, from your user profile, whenever you want.', 'mailtrain-api') ?>
                     </span>
                 </div>
-                <div id="lists" class="row">
+                <?php else: ?>
+                    <input type="hidden" name="mailtrain_name" id="mailtrain_name" value="<?php echo wp_get_current_user()->user_firstname. ' '.wp_get_current_user()->user_lastname; ?>" />
+                    <input type="hidden" name="mailtrain_email" id="mailtrain_email" value="<?php echo wp_get_current_user()->user_email?>" />
+                    <input type="hidden" name="mailtrain_user_id" id="mailtrain_user_id" value="<?php echo wp_get_current_user()->ID?>" />
+            <?php endif;?>
+                <div id="lists" class="row" <?php if(!is_user_logged_in()) { echo 'style="display:none;"';}?>>
                     <div class="col-12">
                         <?php do_action('before_lists_form') ?>
                         <h3 class="text-center">
@@ -61,7 +67,7 @@
                                         <?php echo get_the_title(get_the_ID()) ?>
                                     </h3>
                                     <span class="list-content-text">
-                                        <?php echo get_the_content(get_the_ID()) ?>
+                                        <?php echo wp_strip_all_tags(get_the_content(get_the_ID()),true) ?>
                                     </span>
                                     <div class="row">
                                         <div class="content-author col-12 col-md-8">
@@ -103,6 +109,7 @@
 
                 </div>
             </form>
+            
             <?php do_action('after_lists_form') ?>
         </div>
         <?php do_action('after_lists_page') ?>

@@ -9,6 +9,8 @@ class Mailtrain_API_Config
     {
         add_action('admin_menu', array($this, 'mailtrain_api_add_plugin_page'));
         add_action('admin_init', array($this, 'mailtrain_api_page_init'));
+
+        add_action('show_user_profile', [$this, 'mailtrain_user']);
     }
 
     public function mailtrain_api_add_plugin_page()
@@ -89,12 +91,10 @@ class Mailtrain_API_Config
             'mailtrain-api-admin', // page
             'mailtrain_api_setting_section' // section
         );
-
     }
 
     public function mailtrain_api_section_info()
     {
-        
     }
 
     public function get_pages()
@@ -121,11 +121,11 @@ class Mailtrain_API_Config
         }
 
         if (isset($_POST['mailtrain_loop_page'])) {
-            update_option('mailtrain_loop_page',$_POST['mailtrain_loop_page'] );
+            update_option('mailtrain_loop_page', $_POST['mailtrain_loop_page']);
         }
 
         if (isset($_POST['mailtrain_terms_page'])) {
-            update_option('mailtrain_terms_page',$_POST['mailtrain_terms_page'] );
+            update_option('mailtrain_terms_page', $_POST['mailtrain_terms_page']);
         }
 
         return $sanitary_values;
@@ -173,6 +173,25 @@ class Mailtrain_API_Config
         }
         $select .= '</select>';
         echo $select;
+    }
+
+    public function mailtrain_user($user)
+    {
+
+        $lists = json_decode(mailtrain_api()->get_lists_user($user->user_email));
+
+        $field = '<h3>' . __('Mailtrin Lists', 'mailtrain-api') . '</h3>';
+
+        $field .= '<table class="table-form">';
+        $field .= '<tr> <th scope="row">' . __('Newsletter Lists', 'mailtrain-api') . '</th>';
+
+        foreach($lists->{'data'} as $data) {
+            
+            echo $data->{'name'}.'<br />';
+        }
+
+        $field .= '<tr></table>';
+        echo $field;
     }
 }
 function mailtrain_config()

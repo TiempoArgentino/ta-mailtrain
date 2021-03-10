@@ -12,11 +12,11 @@ class Mailtrain_API_Templates
     public function suscription_load_template($filename = '')
     {
         if (!empty($filename)) {
-            if (locate_template('/mailtrain/' . $filename)) {
+            if (locate_template('mailtrain/' . $filename)) {
                 /**
                  * Folder in theme for show the lists.
                  */
-                $template = locate_template('/mailtrain/' . $filename);
+                $template = locate_template('mailtrain/' . $filename);
             } else {
                 /**
                  * Default folder of templates

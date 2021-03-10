@@ -10,6 +10,7 @@
 		$('#mailtrain-next').on('click',function(){
 			var name = $('#mailtrain_name').val();
 			var email = $('#mailtrain_email').val();
+
 			if(name !== '' && email !== '') {
 				$('#mailtrain_name').removeClass('border-danger');
 				$('#mailtrain_email').removeClass('border-danger');
