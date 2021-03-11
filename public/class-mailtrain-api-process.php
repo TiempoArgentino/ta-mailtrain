@@ -62,21 +62,26 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
             if (isset($_POST['name']) && isset($_POST['email'])) {
 
                 if (!isset($_POST['name'])) {
-                    echo __('Name missing', 'mailtrain-api');
+                    echo __('<div class="text-center alert alert-danger">Falta el nombre.</div>', 'mailtrain-api');
                     wp_die();
                 }
 
                 if (!is_email($_POST['email'])) {
-                    echo __('Wrong email', 'mailtrain-api');
+                    echo __('<div class="text-center alert alert-danger">Falta el email o es incorrecto.</div>', 'mailtrain-api');
                     wp_die();
                 }
 
                 if (!isset($_POST['terms']) && $_POST['terms'] !== 'yes') {
-                    echo __('You must acept terms and conditions', 'mailtrain-api');
+                    echo __('<div class="text-center alert alert-danger">Debés aceptar los términos y condiciones.</div>', 'mailtrain-api');
                     wp_die();
                 }
 
                 $lists = $_POST['lists'];
+
+                if(!$lists || empty($lists)) {
+                    echo __('<div class="text-center alert alert-danger">Debés seleccionar al menos una lista.</div>', 'mailtrain-api');
+                    wp_die();
+                }
 
                 foreach ($lists as $key => $val) {
                    $add = $this->add_subscriber($val, sanitize_text_field($_POST['name']), sanitize_text_field($_POST['email']));

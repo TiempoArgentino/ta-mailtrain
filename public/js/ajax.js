@@ -1,6 +1,6 @@
 (function($) {
     $(document).on('click','#finish-button',function(){
-        console.log('hola');
+
         var name = $('#mailtrain_name').val();
         var email = $('#mailtrain_email').val();
         var terms = $('#terms-and-conditions').is(':checked') ? 'yes' : 'no';
@@ -14,6 +14,7 @@
         });
 
         list.join(',');
+
         $.ajax({
             type: 'post',
             url: ajax_mailtrain.url,
