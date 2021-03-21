@@ -1,5 +1,5 @@
 <?php do_action('before_newletter_page') ?>
-<div class="content-panel content-active" id="newsletter">
+<div class="content-panel" id="newsletter">
     <div class="row">
         <div class="col-12">
             <h3 class="text-center"><?php echo __('Newsletter','user-panel')?></h3>
