@@ -179,18 +179,18 @@ class Mailtrain_API_Config
     {
 
         $lists = json_decode(mailtrain_api()->get_lists_user($user->user_email));
+        var_dump($lists);
+        $field = '<h3>' . __('Mailtrain Lists', 'mailtrain-api') . '</h3>';
 
-        $field = '<h3>' . __('Mailtrin Lists', 'mailtrain-api') . '</h3>';
-
-        $field .= '<table class="table-form">';
-        $field .= '<tr> <th scope="row">' . __('Newsletter Lists', 'mailtrain-api') . '</th>';
-
+        $field .= '<table class="form-table">';
+        $field .= '<tr> 
+        <th scope="row">' . __('Newsletter Lists', 'mailtrain-api') . '</th>';
+        $field .= '<td>';
         foreach($lists->{'data'} as $data) {
-            
-            echo $data->{'name'}.'<br />';
+            $field .= $data->{'name'}.'<br />';
         }
-
-        $field .= '<tr></table>';
+        $field .= '</td>';
+        $field .= '</tr></table>';
         echo $field;
     }
 }

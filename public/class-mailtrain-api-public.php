@@ -106,6 +106,7 @@ class Mailtrain_Api_Public {
 	{
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-mailtrain-api-templates.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-mailtrain-api-process.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-mailtrain-api-user.php';
 	}
 
 }
