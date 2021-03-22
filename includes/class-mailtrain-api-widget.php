@@ -10,7 +10,7 @@ class Mailtrain_API_Widget extends WP_Widget
             ['customize_selective_refresh' => true]
         );
 
-        // $this->add_user_to_list();
+        $this->add_user_to_list();
     }
 
     public function form($instance)
@@ -51,7 +51,7 @@ class Mailtrain_API_Widget extends WP_Widget
         
         if($the_list !== '') {
             $view .= '<form method="post" name="mailtrain-form-front">';
-            $view .= '<input type="email" name="the_email" placeholder="'.__('Your email','mailtrain-api').'" />';
+            $view .= '<input type="email" name="the_email" placeholder="'.__('Your email','mailtrain-api').'" value="" />';
             $view .= '<input type="hidden" name="the_list" value="'.$the_list.'" />';
             $view .= '<button type="submit" class="mt-3" name="elotro">'.__('SEND','mailtrain-api').'</button>';
             $view .= '</form>';
@@ -65,9 +65,16 @@ class Mailtrain_API_Widget extends WP_Widget
 
     public function add_user_to_list()
     {
-        if (isset($_POST['elamil'])) {
-            var_dump($_REQUEST);
-            die();
+        if (isset($_POST['the_email'])) {
+            $add = mailtrain_api()->add_subscriber($_POST['the_list'],'',$_POST['the_email']);
+            $add = json_decode($add);
+            if($add->{'data'}->{'id'}){
+                echo 'gracias ta listo';
+                die();
+            } else {
+                var_dump($add);
+                die();
+            }
         }
     }
 }
