@@ -35,6 +35,11 @@ class Mailtrain_API_Curl {
           return $response;
     }
 
+    public function get_all_lists()
+    {
+        return json_decode($this->connect('lists/?'));
+    }
+
     public function lists($post_id)
     {
 
@@ -58,7 +63,7 @@ class Mailtrain_API_Curl {
         $return['cid'] = $list->{'data'}->{'cid'};
         $return['name'] = $list->{'data'}->{'name'};
         
-        echo json_encode($return);
+        return json_encode($return);
     }
 
     public function add_subscriber($list_id,$name,$email)

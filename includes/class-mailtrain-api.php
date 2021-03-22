@@ -121,6 +121,10 @@ class Mailtrain_Api {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-mailtrain-api-admin.php';
 
+		/**
+		 * The widget class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mailtrain-api-widget.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing

@@ -91,6 +91,7 @@ class Mailtrain_API_Config
             'mailtrain-api-admin', // page
             'mailtrain_api_setting_section' // section
         );
+
     }
 
     public function mailtrain_api_section_info()
@@ -121,11 +122,11 @@ class Mailtrain_API_Config
         }
 
         if (isset($_POST['mailtrain_loop_page'])) {
-            update_option('mailtrain_loop_page', $_POST['mailtrain_loop_page']);
+            update_option('mailtrain_loop_page', $_POST['mailtrain_loop_page'],true);
         }
 
         if (isset($_POST['mailtrain_terms_page'])) {
-            update_option('mailtrain_terms_page', $_POST['mailtrain_terms_page']);
+            update_option('mailtrain_terms_page', $_POST['mailtrain_terms_page'],true);
         }
 
         return $sanitary_values;
@@ -179,7 +180,7 @@ class Mailtrain_API_Config
     {
 
         $lists = json_decode(mailtrain_api()->get_lists_user($user->user_email));
-        var_dump($lists);
+
         $field = '<h3>' . __('Mailtrain Lists', 'mailtrain-api') . '</h3>';
 
         $field .= '<table class="form-table">';
