@@ -1,27 +1,34 @@
 (function($) {
 
-    // $(document).ready(function(){
-    //     $('#button-ma-widget-front').on('click',function(){
-    //       var the_email = $('#the_email').val();
-    //       var the_list = $('#the_list').val();
-    //           $.ajax({
-    //               type: 'post',
-    //               url: widget_front_ajax.url,
-    //               data:{
-    //                   action: widget_front_ajax.action,
-    //                   _ajax_nonce: widget_front_ajax._ajax_nonce,
-    //                   the_email: the_email,
-    //                   the_list: the_list
-    //               },
-    //               success: function(response){
-    //                   console.log('listo '+ response)
-    //               },
-    //               error: function(response){
-    //                   console.log('el error '+ response)
-    //               }        
-    //           });
-    //     });
-    // });
+    $(document).on('click','#button-ma-widget-front',function(){
+        var the_email = $('#the_email').val();
+        var the_list = $('#the_list').val();
+            $.ajax({
+                type: 'post',
+                url: widget_front_ajax.url,
+                data:{
+                    action: widget_front_ajax.action,
+                    _ajax_nonce: widget_front_ajax._ajax_nonce,
+                    widget: widget_front_ajax.widget,
+                    the_email: the_email,
+                    the_list: the_list
+                },
+                success: function(response){
+                    var res = response;
+                    console.log(res);
+                    if(res.success){
+                        $('#mailtrain-form-front').slideUp(400,function(){
+                            $('#response-widget').show().html(res.data);
+                        });
+                    } else {
+                       $('#the_email').addClass('border border-danger');
+                    }
+                },
+                error: function(response){
+                    //console.log('el error '+ response)
+                }        
+            });
+    });;
 
     $(document).on('click','#finish-button',function(){
 

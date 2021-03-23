@@ -2,8 +2,8 @@
 
 class Mailtrain_API_Process extends Mailtrain_API_Curl
 {
-    public $nonce = 'mailtrain-nonce';
-    public $action = 'mailtrain-ajax-action';
+    public $nonce = 'mailtrain_nonce';
+    public $action = 'mailtrain_ajax_action';
     public $url;
 
     public function __construct()
@@ -12,26 +12,26 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
 
         add_action('wp_enqueue_scripts', [$this, 'ajax_function']);
 
-        add_action('wp_ajax_nopriv_'.$this->action, [$this, 'process_subscribe']);
-        add_action('wp_ajax_'.$this->action, [$this, 'process_subscribe']);
+        add_action('wp_ajax_nopriv_mailtrain', [$this, 'process_subscribe']);
+        add_action('wp_ajax_mailtrain', [$this, 'process_subscribe']);
 
-        add_action('wp_ajax_nopriv_'.$this->action, [$this, 'widget_add_user']);
-        add_action('wp_ajax_'.$this->action, [$this, 'widget_add_user']);
+        add_action('wp_ajax_nopriv_mtwidget', [$this, 'front_widget']);
+        add_action('wp_ajax_mtwidget', [$this, 'front_widget']);
     }
 
     public function ajax_function()
     {
         wp_enqueue_script('mailtrain_js', plugin_dir_url(__FILE__) . 'js/front-ajax.js', array('jquery'), '1.2', true);
-        $this->subscribe();
         $this->add_widget_vars();
+        $this->subscribe();
+        
     }
 
     public function ajas_vars($var_data, $data)
     {
         $fields = [
-             'url'    => $this->url,
+            'url'    => $this->url,
             '_ajax_nonce'  => wp_create_nonce($this->nonce),
-            'action' => $this->action,
         ];
 
         $fields = array_merge($fields, $data);
@@ -40,7 +40,7 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
     }
 
     public function subscribe()
-    {
+    {   
         $name = isset($_POST['name']) ? $_POST['name'] : '';
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         $lists = isset($_POST['lists']) ? $_POST['lists'] : '';
@@ -48,6 +48,7 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
         $id = isset($_POST['id']) ? $_POST['id'] : '';
 
         $fields = [
+            'action' => 'mailtrain',
             'name' => $name,
             'email' => $email,
             'lists' => $lists,
@@ -61,6 +62,7 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
     public function process_subscribe()
     {
         if (isset($_POST['_ajax_nonce'])) {
+            
             $nonce = sanitize_text_field($_POST['_ajax_nonce']);
 
             if (!wp_verify_nonce($nonce, $this->nonce)) {
@@ -113,12 +115,15 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
      */
     public function add_widget_vars()
     {
-        $list = isset($_POST['the_list']) ? $_POST['the_list'] : '';
-        $email = isset($_POST['the_email']) ? $_POST['the_email'] : '';
+        $the_list = isset($_POST['the_list']) ? $_POST['the_list'] : '';
+        $the_email = isset($_POST['the_email']) ? $_POST['the_email'] : '';
+        $widget = isset($_POST['widget']) ? $_POST['widget'] : '';
 
         $fields = [
-            'the_list' => $list,
-            'the_email' => $email
+            'action' => 'mtwidget',
+            'widget' => $widget,
+            'the_list' => $the_list,
+            'the_email' => $the_email,
         ];
 
         return $this->ajas_vars('widget_front_ajax', $fields);
@@ -126,34 +131,30 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
     /**
      * function add widget
      */
-    public function widget_add_user()
+    public function front_widget()
     {
-        if (isset($_POST['_ajax_nonce'])) {
-
-            echo 'hola';
-           
+ 
+        if (isset($_POST['widget'])) {
+     
             $nonce = sanitize_text_field($_POST['_ajax_nonce']);
 
             if (!wp_verify_nonce($nonce, $this->nonce)) {
-                $error = new WP_Error('001', __('Nonce empty', 'mailtrain-api'));
-                echo wp_send_json_error($error);
-                wp_die();
+                die('hay un error');
             }
 
             if (isset($_POST['the_email']) && isset($_POST['the_list'])) {
                 $add = $this->add_subscriber($_POST['the_list'], '', $_POST['the_email']);
                 $add = json_decode($add);
-                if ($add->{'data'}->{'id'}) {
-                    echo wp_send_json_success(__('Your are subscribe!!!', 'mailtrain-api'), '002');
+                if(isset($add->{'error'})){
+                    echo wp_send_json_error(__('Invalid email address!', 'mailtrain-api'));
                     wp_die();
-                } else {
-                    $error = new WP_Error('002', __('There are empty field!', 'mailtrain-api'));
-                    echo wp_send_json_error($error);
+                }
+                if (isset($add->{'data'}->{'id'})) {
+                    echo wp_send_json_success(__('Thank you','mailtrain-api'),200);
                     wp_die();
                 }
             } else {
-                $error = new WP_Error('002', __('All fields are required', 'mailtrain-api'));
-                echo wp_send_json_error($error);
+                echo wp_send_json_error(__('All fields are required', 'mailtrain-api'));
                 wp_die();
             }
         }

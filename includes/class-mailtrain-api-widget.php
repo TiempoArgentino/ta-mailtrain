@@ -53,6 +53,7 @@ class Mailtrain_API_Widget extends WP_Widget
             $view .= '<input type="hidden" name="the_list" id="the_list" value="'.$the_list.'" />';
             $view .= '<button type="button" class="mt-3" name="button-ma-widget-front" id="button-ma-widget-front">'.__('SEND','mailtrain-api').'</button>';
             $view .= '</form>';
+            $view .= '<div id="response-widget"></div>';
         } else {
             $view .= __('This form is not configured','mailtrain-api');
         }
