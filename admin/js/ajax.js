@@ -10,9 +10,9 @@
                     nonce: ajax_var.nonce,
                     id: id
                 },
-                dataType: 'json',
                 success: function(res){
-                    $('#list_cid').val(res.cid);
+                    var response = $.parseJSON(res);
+                    $('#list_cid').val(response['cid']);
                 }
             });
         });

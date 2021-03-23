@@ -1,4 +1,28 @@
 (function($) {
+
+    // $(document).ready(function(){
+    //     $('#button-ma-widget-front').on('click',function(){
+    //       var the_email = $('#the_email').val();
+    //       var the_list = $('#the_list').val();
+    //           $.ajax({
+    //               type: 'post',
+    //               url: widget_front_ajax.url,
+    //               data:{
+    //                   action: widget_front_ajax.action,
+    //                   _ajax_nonce: widget_front_ajax._ajax_nonce,
+    //                   the_email: the_email,
+    //                   the_list: the_list
+    //               },
+    //               success: function(response){
+    //                   console.log('listo '+ response)
+    //               },
+    //               error: function(response){
+    //                   console.log('el error '+ response)
+    //               }        
+    //           });
+    //     });
+    // });
+
     $(document).on('click','#finish-button',function(){
 
         var name = $('#mailtrain_name').val();
@@ -20,7 +44,7 @@
             url: ajax_mailtrain.url,
             data: {
                 action: ajax_mailtrain.action,
-                nonce: ajax_mailtrain.nonce,
+                _ajax_nonce: ajax_mailtrain._ajax_nonce,
                 name: name,
                 email: email,
                 lists: list,
@@ -48,9 +72,6 @@
             }
         });
     });
-    // $(document).ready(function(){
-    //     $('#finish-button').on('click',function(){
-          
-    //     });
-    //});
+
+
 })(jQuery);

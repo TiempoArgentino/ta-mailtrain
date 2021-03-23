@@ -10,7 +10,6 @@ class Mailtrain_API_Widget extends WP_Widget
             ['customize_selective_refresh' => true]
         );
 
-        $this->add_user_to_list();
     }
 
     public function form($instance)
@@ -43,40 +42,24 @@ class Mailtrain_API_Widget extends WP_Widget
     {
         $the_list = isset($instance['default_list']) ? esc_attr($instance['default_list']) : '';
         $msg = isset($instance['msg']) ? esc_attr($instance['msg']) : '';
-        $view = $before_widget;
-
+        $view = '';
         if($msg !== '') {
             $view .= $msg;
         }
         
         if($the_list !== '') {
-            $view .= '<form method="post" name="mailtrain-form-front">';
-            $view .= '<input type="email" name="the_email" placeholder="'.__('Your email','mailtrain-api').'" value="" />';
-            $view .= '<input type="hidden" name="the_list" value="'.$the_list.'" />';
-            $view .= '<button type="submit" class="mt-3" name="elotro">'.__('SEND','mailtrain-api').'</button>';
+            $view .= '<form method="post" id="mailtrain-form-front">';
+            $view .= '<input type="email" name="the_email" id="the_email" placeholder="'.__('Your email','mailtrain-api').'" value="" />';
+            $view .= '<input type="hidden" name="the_list" id="the_list" value="'.$the_list.'" />';
+            $view .= '<button type="button" class="mt-3" name="button-ma-widget-front" id="button-ma-widget-front">'.__('SEND','mailtrain-api').'</button>';
             $view .= '</form>';
         } else {
             $view .= __('This form is not configured','mailtrain-api');
         }
 
-        $view .= $after_widget;
         echo $view;
     }
 
-    public function add_user_to_list()
-    {
-        if (isset($_POST['the_email'])) {
-            $add = mailtrain_api()->add_subscriber($_POST['the_list'],'',$_POST['the_email']);
-            $add = json_decode($add);
-            if($add->{'data'}->{'id'}){
-                echo 'gracias ta listo';
-                die();
-            } else {
-                var_dump($add);
-                die();
-            }
-        }
-    }
 }
 
 function mailtrain_api__widget()

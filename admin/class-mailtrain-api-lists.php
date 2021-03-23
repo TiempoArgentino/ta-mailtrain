@@ -30,13 +30,14 @@ class Mailtrain_API_List
 
     public function list_info()
     {
+       
         if (isset($_POST['nonce'])) {
             $nonce = sanitize_text_field($_POST['nonce']);
 
             if (!wp_verify_nonce($nonce, 'my-ajax-nonce')) {
                 die('Busted!');
             }
-            mailtrain_api()->get_list_by_id($_POST['id']);
+            echo mailtrain_api()->get_list_by_id($_POST['id']);
             wp_die();
         }
     }
