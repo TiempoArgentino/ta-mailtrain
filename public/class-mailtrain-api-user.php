@@ -8,9 +8,14 @@ class Mailtrain_API_User extends Mailtrain_API_Curl
         add_action('panel_user_content', [$this, 'user_lists_content']);
     }
 
-    public function user_panel_tab()
+    public function user_panel_tab($tab = '')
     {
-        echo '<a href="#newsletter" class="tab-select" data-content="#newsletter">' . __('Newsletter', 'panel-user') . '</a> ';
+        if(has_filter( 'panel_tabs_newsletter' )) {
+            apply_filters( 'panel_tabs_newsletter', $tab );
+        } else {
+            echo '<a href="#newsletter" class="tab-select" data-content="#newsletter">' . __('Newsletter', 'panel-user') . '</a> ';
+        }
+       
     }
 
     public function user_lists_content()
