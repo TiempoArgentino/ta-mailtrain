@@ -39,7 +39,7 @@ class Mailtrain_API_User extends Mailtrain_API_Curl
 
         $lists = get_user_meta( $user_id, '_user_mailtrain_lists_id',true );
 
-        if($lists !== null || $lists !== ''){
+        if($lists !== ''){
             return $lists;
         }
         return false;
