@@ -74,7 +74,7 @@
                                             <?php echo __('By :', 'mailtrain-api') ?> <?php echo get_post_meta(get_the_ID(), '_author_newsletter', true) ?>
                                         </div>
                                         <div class="content-checkbox col-12 col-md-4">
-                                            <input type="checkbox" name="list-cid[]" class="list-item-select" value="<?php echo get_post_meta(get_the_ID(), '_list_cid', true) ?>">
+                                            <input type="checkbox" name="list-cid[]" data-listId="<?php echo get_the_ID()?>" class="list-item-select" value="<?php echo get_post_meta(get_the_ID(), '_list_cid', true) ?>">
                                         </div>
                                     </div>
                                 </div>

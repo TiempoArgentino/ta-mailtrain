@@ -32,6 +32,18 @@ class Mailtrain_API_User extends Mailtrain_API_Curl
             require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/user-panel/lists.php';
         }
     }
+
+    public function user_lists()
+    {
+        $user_id = wp_get_current_user()->ID;
+
+        $lists = get_user_meta( $user_id, '_user_mailtrain_lists_id',true );
+
+        if($lists !== null || $lists !== ''){
+            return $lists;
+        }
+        return false;
+    }
 }
 
 function mailtrain_api_user()

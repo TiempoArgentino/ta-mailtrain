@@ -44,7 +44,15 @@
             }
         });
 
+        var ids = [];
+        $.each(lists, function() {
+            if($(this).is(':checked')) {
+                ids.push($(this).attr('data-listId'))
+            }
+        });
+
         list.join(',');
+        ids.join(',');
 
         $.ajax({
             type: 'post',
@@ -56,7 +64,8 @@
                 email: email,
                 lists: list,
                 terms: terms,
-                id: id
+                id: id,
+                ids:ids
             },
             success: function(response){
                 console.log(response)

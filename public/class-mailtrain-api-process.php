@@ -46,6 +46,7 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
         $lists = isset($_POST['lists']) ? $_POST['lists'] : '';
         $terms = isset($_POST['terms']) ? $_POST['terms'] : '';
         $id = isset($_POST['id']) ? $_POST['id'] : '';
+        $ids = isset($_POST['ids']) ? $_POST['ids'] : '';
 
         $fields = [
             'action' => 'mailtrain',
@@ -53,7 +54,8 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
             'email' => $email,
             'lists' => $lists,
             'terms' => $terms,
-            'id' => $id
+            'id' => $id,
+            'ids' => $ids
         ];
 
         return $this->ajas_vars('ajax_mailtrain', $fields);
@@ -100,6 +102,7 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
                 if ($add->{'data'}->{'id'}) {
                     if (!empty($_POST['id'])) {
                         update_user_meta($_POST['id'], '_user_mailtrain_lists', $lists);
+                        update_user_meta($_POST['id'], '_user_mailtrain_lists_id', $_POST['ids']);
                     }
                     echo 'ok';
                 } else {
