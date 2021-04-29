@@ -16,6 +16,8 @@ class Mailtrain_API_List
 
         add_action('wp_ajax_nopriv_event-list', [$this, 'list_info']);
         add_action('wp_ajax_event-list', [$this, 'list_info']);
+
+        add_action('wp_roles_init',[$this,'permisions'],1,1);
     }
 
     public function ajax_function()
@@ -74,7 +76,7 @@ class Mailtrain_API_List
             'show_in_nav_menus' => false,
             'delete_with_user' => false,
             'exclude_from_search' => false,
-            'capability_type' => 'post',
+            'capability_type' => ['list','lists'],
             'map_meta_cap' => true,
             'hierarchical' => false,
             'rewrite' => ['slug' => 'mailtrain_lists', 'with_front' => true],
@@ -234,6 +236,24 @@ class Mailtrain_API_List
         $form .= '</tbody> </table>';
 
         echo $form;
+    }
+
+    public function permisions($wp_roles)
+    {
+        $admin = $wp_roles->get_role( 'administrator' );
+        
+        $admin_cap = [
+            'edit_list',
+            'edit_lists',
+            'delete_list',
+            'delete_lists',
+            'publish_lists',
+            'edit_published_lists'
+        ];
+
+        foreach( $admin_cap as $cap ) {
+            $admin->capabilities[$cap] = true;
+        }
     }
 }
 
