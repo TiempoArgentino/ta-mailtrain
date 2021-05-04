@@ -29,8 +29,29 @@ class Mailtrain_Api_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
-
+	public static function deactivate() 
+	{
+		add_action('admin_init',[self::class,'permisions']);
 	}
+	/**
+	 * caps
+	 */
+	public static function permisions()
+    {
+        $admin = get_role( 'administrator' );
+        
+        $admin_cap = [
+            'edit_list',
+            'edit_lists',
+            'delete_list',
+            'delete_lists',
+            'publish_lists',
+            'edit_published_lists'
+        ];
+
+        foreach( $admin_cap as $cap ) {
+            $admin->remove_cap($cap);
+        }
+    }
 
 }

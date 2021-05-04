@@ -31,7 +31,30 @@ class Mailtrain_Api_Activator {
 	 */
 	public static function activate() {
 		self::create_default_pages();
+
+		add_action('admin_init',[self::class,'permisions']);
 	}
+
+	/**
+	 * caps
+	 */
+	public static function permisions()
+    {
+        $admin = get_role( 'administrator' );
+        
+        $admin_cap = [
+            'edit_list',
+            'edit_lists',
+            'delete_list',
+            'delete_lists',
+            'publish_lists',
+            'edit_published_lists'
+        ];
+
+        foreach( $admin_cap as $cap ) {
+            $admin->add_cap($cap);
+        }
+    }
 	/**
 	 * Default pages querys, function base: https://developer.wordpress.org/reference/functions/post_exists/
 	 */
