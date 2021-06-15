@@ -36,7 +36,7 @@ Una vez activado el plugin, se nos agrega un menú llamado **Mailtrain API**, do
 
 ![img3](docs/img/img3.png)
 
-### Configuración global
+#### Configuración global
 
 Cuando ingresamos al sub menú **Mailtrain API**, encontramos esta pantalla:
 
@@ -54,7 +54,7 @@ Las siguientes dos opciones, son las páginas por defecto que usa el plugin. Est
 - **Página de listas o Lists Pages** es la página principal para mostrar las listas a las que los usuarios pueden suscribirse.
 - **Términos y condiciones o Terms and Conditions** es la referencia a la página de términos y condiciones del sitio. Esta página debe estar previamente creada manualmente.
 
-### Listas
+#### Listas
 
 El sub menú de Listas, contienen un `custom post type` donde podemos configurar las opciones para las suscripciones, creando uno por cada lista creada en Mailtrain previamente.
 
@@ -90,8 +90,18 @@ Lo importante en esta parte es la parte de **Opciones - Configuración**, se con
 
 **Mostrar campo de nombre**: Mostrar o no el campo `Nombre` para el suscriptor. Este campo se puede ignorar por defecto, aunque en las listas creadas en Mailtrain este presente.
 
-**Mostrar campo de apellido**: Mostrar o no el campo `Apellid` para el suscriptor. Este campo se puede ignorar por defecto, aunque en las listas creadas en Mailtrain este presente.
+**Mostrar campo de apellido**: Mostrar o no el campo `Apellido` para el suscriptor. Este campo se puede ignorar por defecto, aunque en las listas creadas en Mailtrain este presente.
 
 **¿Forzar suscripcion?**: Este opción se recomienda siempre tenerla activa ya que muchas veces Mailtrain falla al agregar los usuarios a las listas, sin avisarnos el por qué, de esta forma, se fuerza la creación del usuario en la lista, en caso de existir, el usuario se actualiza.
 
+Los demas campos, si bien estan presentes, no tiene impacto sobre la configuración por el momento ya que son para extender funciones en caso de necesitarse.
+
 ![img10](docs/img/img10.png)
+
+## Diseño y templates
+
+El plugin contiene un front que se puede modificar, este front, por defecto, se encuentra en la carpeta **`public/partials/pages`**. Se puede sobre escribir creando en nuestro theme principal (o child theme) una nueva carpeta llamada **mailtrain** y copiando dentro la carpeta **pages** del plugin con los archivos correspondientes, en este caso, el archivo **mailtrain.php**.
+
+Este archivo contiene un loop de WordPress personalizado.
+
+Los actions de este template se manejan mediante `ajax` desde el archivo `public/partials/js/front-ajax.js`.
