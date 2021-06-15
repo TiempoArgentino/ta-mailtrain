@@ -73,6 +73,23 @@ Con el botón de **Añadir nueva** podes crear una nueva Lista.
 
 ![img6](docs/img/img6.png)
 
+La pantalla principal para la creación es la siguiente:
+
+![img7](docs/img/img7.png)
+
+El desglose de esta pantalla es:
+
+![img8](docs/img/img8.png)
+
+- 1 **Título de la lista**
+- 2 **Texto** si es necesarío, de la descripción de la lista.
+- 3 **Opciones - Configuración** en esta parte configuramos por ejemplo, a que lista se suscribirian los usuarios.
+
+El título y descripción de las listas, son los campos típicos de WordPress por lo cual no vamos a interiorizar en su uso.
+
+Lo importante en esta parte es la parte de **Opciones - Configuración**, se configura de esta forma:
+
+
 
 
 
