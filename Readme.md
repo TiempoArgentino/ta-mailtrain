@@ -1,9 +1,7 @@
 ## WordPress Mailtrain Plugin
 
-
 Este plugin fue desarrollado como parte de una estrategia **Open Source** para medios de todo el mundo basada en el CMS **WordPress**.  
 Haciendo click en este [enlace](https://tiempoar.com.ar/proyecto-colaborativo/) se puede encontrar más información sobre el proyecto, así como las lista de plugins que complementan a este para tener un sitio completamente funcional.
-
 
 ### Introducción
 
@@ -12,7 +10,6 @@ El plugin de conexión entre Mailtrain y WordPress, se desarrollo para utilizars
 [Mailtrain Web](https://mailtrain.org/)
 
 [Mailtrain Wiki](https://github.com/Mailtrain-org/mailtrain/wiki)
-
 
 ### Instalación
 
@@ -25,7 +22,6 @@ En el caso de haber descargado el zip, debe descomprimirlo dentro de **`wp-conte
 Recuerde que una vez clonado se debe re-nombrar la carpeta a **mailtrain-api**, luego activar desde el menú principal de **Wordpress > Plugins**.
 
 ![img2](docs/img/img2.png)
-
 
 ### Configuración
 
@@ -105,3 +101,34 @@ El plugin contiene un front que se puede modificar, este front, por defecto, se 
 Este archivo contiene un loop de WordPress personalizado.
 
 Los actions de este template se manejan mediante `ajax` desde el archivo `public/partials/js/front-ajax.js`.
+
+### Plugin Actions
+
+Lista de acciones que se puede usar para extender el plugin. Se llaman:
+
+```PHP
+add_action('action_hook','callback_function',priority, arguments)
+```
+
+Más información en [Codex Wordpress](https://developer.wordpress.org/reference/functions/add_action/)
+
+<table>
+<tbody>
+<tr>
+<th>before_lists_page</th>
+<td>Arriba del loop de listas</td>
+</tr>
+<tr>
+<th>before_lists_form</th>
+<td>Arriba del loop de listas, luego de before_lists_page</td>
+</tr>
+<tr>
+<th>after_lists_form</th>
+<td>Luego del cierre de loop</td>
+</tr>
+<tr>
+<th>after_lists_page</th>
+<td>Footer del loop</td>
+</tr>
+</tbody>
+</table>
