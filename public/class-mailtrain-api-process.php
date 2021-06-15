@@ -17,6 +17,9 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
 
         add_action('wp_ajax_nopriv_mtwidget', [$this, 'front_widget']);
         add_action('wp_ajax_mtwidget', [$this, 'front_widget']);
+
+        add_action('wp_ajax_nopriv_unsuscribe', [$this, 'unsuscribe_ajax']);
+        add_action('wp_ajax_unsuscribe', [$this, 'unsuscribe_ajax']);
     }
 
     public function ajax_function()
@@ -24,6 +27,7 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
         wp_enqueue_script('mailtrain_js', plugin_dir_url(__FILE__) . 'js/front-ajax.js', array('jquery'), '1.2', true);
         $this->add_widget_vars();
         $this->subscribe();
+        $this->unsuscribe();
         
     }
 
@@ -160,6 +164,52 @@ class Mailtrain_API_Process extends Mailtrain_API_Curl
                 echo wp_send_json_error(__('All fields are required', 'mailtrain-api'));
                 wp_die();
             }
+        }
+    }
+
+    public function unsuscribe()
+    {   
+        $email = isset($_POST['email']) ? $_POST['email'] : '';
+        $lists = isset($_POST['lists']) ? $_POST['lists'] : '';
+
+        $fields = [
+            'action' => 'unsuscribe',
+            'email' => $email,
+            'lists' => $lists
+        ];
+
+        return $this->ajas_vars('ajax_unsuscribe', $fields);
+    }
+
+    public function unsuscribe_ajax()
+    {
+        if(isset($_POST['_ajax_nonce'])) {
+            $nonce = sanitize_text_field($_POST['_ajax_nonce']);
+
+            if (!wp_verify_nonce($nonce, $this->nonce)) {
+               wp_send_json_error();
+               wp_die();
+            }
+
+            if(isset($_POST['email']) && isset($_POST['lists'])){
+                $cid = get_post_meta($_POST['lists'],'_list_cid',true);
+                $unsuscribe = mailtrain_api()->desuscribe($cid,$_POST['email']);
+
+               
+                if($unsuscribe) {
+                    $user = get_user_by('email',$_POST['email']);
+                    $user_lists = get_user_meta($user->ID,'_user_mailtrain_lists_id',true);
+                    if (($key = array_search($_POST['lists'],$user_lists)) !== false) {
+                        unset($user_lists[$key]);
+                        update_user_meta($user->ID,'_user_mailtrain_lists_id', $user_lists );
+                    }
+                    wp_send_json_success();
+                    wp_die();
+                }
+
+                wp_die();
+            }
+
         }
     }
 }

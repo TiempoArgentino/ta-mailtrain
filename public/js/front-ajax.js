@@ -89,5 +89,29 @@
         });
     });
 
-
+    $(document).ready(function(){
+        $('.unsuscribe').on('click',function(){
+            var lists = $(this).data('lists');
+            var email = $(this).data('email');
+            console.log('click')
+            $.ajax({
+                type:'post',
+                url:ajax_unsuscribe.url,
+                data:{
+                    action: ajax_unsuscribe.action,
+                    _ajax_nonce: ajax_unsuscribe._ajax_nonce,
+                    lists: lists,
+                    email: email
+                },
+                success: function(data){
+                    if(data.success) {
+                        location.reload();
+                    }
+                },
+                error: function(data) {
+                    console.log(data)
+                }
+            });
+        });
+    });
 })(jQuery);
