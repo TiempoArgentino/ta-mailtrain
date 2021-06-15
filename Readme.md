@@ -79,3 +79,19 @@ El desglose de esta pantalla es:
 El título y descripción de las listas, son los campos típicos de WordPress por lo cual no vamos a interiorizar en su uso.
 
 Lo importante en esta parte es la parte de **Opciones - Configuración**, se configura de esta forma:
+
+**Seleccionar Lista**: en este desplegable se selecciona la lista donde se recibiran los datos de los usuarios inscriptos. Este es la parte mas importante de la configuración.
+
+**Frecuencia**: este campo es es `informativo` y muestra un texto (cadena) nada mas. No afecta la frecuencia de envíos realmente.
+
+**Etiqueta de campo de email**: Este campo simplemente sirve para cambiar la etiqueta (label) del campo de email.
+
+**Autor**: este campo es es `informativo` y muestra un texto (cadena) nada mas. El nombre del "autor" no se consulta de la API.
+
+**Mostrar campo de nombre**: Mostrar o no el campo `Nombre` para el suscriptor. Este campo se puede ignorar por defecto, aunque en las listas creadas en Mailtrain este presente.
+
+**Mostrar campo de apellido**: Mostrar o no el campo `Apellid` para el suscriptor. Este campo se puede ignorar por defecto, aunque en las listas creadas en Mailtrain este presente.
+
+**¿Forzar suscripcion?**: Este opción se recomienda siempre tenerla activa ya que muchas veces Mailtrain falla al agregar los usuarios a las listas, sin avisarnos el por qué, de esta forma, se fuerza la creación del usuario en la lista, en caso de existir, el usuario se actualiza.
+
+![img10](docs/img/img10.png)
