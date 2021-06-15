@@ -12,7 +12,7 @@ Haciendo click en este [enlace](https://tiempoar.com.ar/proyecto-colaborativo/) 
 This plugin was developed as part of an **Open Source** strategy for worldwide media based on the CMS **WordPress**.
 By clicking on this [link](https://tiempoar.com.ar/proyecto-colaborativo/) you can find more information about the project, as well as the list of complements that complement it to have a fully functional site.
 
-## <a name="spanish"></a> Documentación en español
+### <a id="spanish"></a> Documentación en español
 
 ### Introducción
 
@@ -34,4 +34,4 @@ Recuerde que una vez clonado se debe re-nombrar la carpeta a **mailtrain-api**, 
 
 
 
-## <a name="english"></a> English Documentation
+### <a id="english"></a> English Documentation
