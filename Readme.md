@@ -25,12 +25,54 @@ El plugin de conexión entre Mailtrain y WordPress, se desarrollo para utilizars
 
 ### Instalación
 
-Para instalar el plugin, debemos clonar el siguiente repositorio [Github](https://bitbucket.org/genosha/ad-manager-plugin) o descargar el zip del mismo.
+Para instalar el plugin, debe clonar el siguiente repositorio [Github](https://bitbucket.org/genosha/ad-manager-plugin) o descargar el zip del mismo.
 
 ![img1](docs/img/img1.png)
 
+En el caso de haber descargado el zip, debe descomprimirlo dentro de **`wp-content/plugins`**.
 
-Recuerde que una vez clonado se debe re-nombrar la carpeta a **mailtrain-api**, luego activar desde el menú principal de Wordpress > Plugins.
+Recuerde que una vez clonado se debe re-nombrar la carpeta a **mailtrain-api**, luego activar desde el menú principal de **Wordpress > Plugins**.
+
+![img2](docs/img/img2.png)
+
+
+### Configuración
+
+Una vez activado el plugin, se nos agrega un menú llamado **Mailtrain API**, donde se encuentran dos sub menús:
+
+- **Mailtrain API** donde se encuentran las opciones.
+- **Lists** donde se crean las listas donde los usuarios se suscribiran.
+
+![img3](docs/img/img3.png)
+
+### Configuración global
+
+Cuando ingresamos al sub menú **Mailtrain API**, encontramos esta pantalla:
+
+![im4](docs/img/img4.png)
+
+En esta pantalla se realiza la configuración básica del plugin, de la siguiente manera:
+
+- **URL Mailtrain** es la url a la instalación de Mailtrain que se realizó previamente. `ej: https://newsletter.yourdomain.com, sin la barra final`
+- **API Access Token** el token provisto por mailtrain para la conexión con su API. `Ver en https://newsletter.yourdomain.com/users/api, sino existe, generar una`.
+
+Configurando estas dos opciones, ya tenemos acceso por API a la instalación de Mailtrain.
+
+Las siguientes dos opciones, son las páginas por defecto que usa el plugin. Estas páginas se crean automáticamente al activar el plugin, cuando se desactiva, se borran de forma automática también.
+
+- **Página de listas o Lists Pages** es la página principal para mostrar las listas a las que los usuarios pueden suscribirse.
+- **Términos y condiciones o Terms and Conditions** es la referencia a la página de términos y condiciones del sitio. Esta página debe estar previamente creada manualmente.
+
+### Listas
+
+El sub menú de Listas, contienen un `custom post type` donde podemos configurar las opciones para las suscripciones, creando uno por cada lista creada en Mailtrain previamente.
+
+![img5](docs/img/img5.png)
+
+Con el botón de **Añadir nueva** podes crear una nueva Lista.
+
+![img6](docs/img/img6.png)
+
 
 
 
