@@ -15,7 +15,7 @@ El plugin de conexión entre Mailtrain y WordPress, se desarrollo para utilizars
 
 ### Instalación
 
-Para instalar el plugin, debe clonar el siguiente repositorio [Github](https://bitbucket.org/genosha/ad-manager-plugin) o descargar el zip del mismo.
+Para instalar el plugin, debe clonar el siguiente repositorio [Github](https://github.com/TiempoArgentino/ta-mailtrain) o descargar el zip del mismo.
 
 ![img1](docs/img/img1.png)
 
